@@ -1,10 +1,7 @@
 package com.example.shiroDemo.shiro;
 
-import com.sun.scenario.effect.impl.state.LinearConvolveKernel;
-import org.apache.catalina.User;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.servlet.ShiroFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,9 +31,15 @@ public class ShiroConfig {
 //        shiroMap.put("/add", "authc");
         shiroMap.put("/test", "anon");
         shiroMap.put("/login", "anon");
+
+        //授权过滤器
+        //当前授权拦截后，shiro会自动转跳到未授权页面
+        shiroMap.put("/add", "perms[add]");
+
         shiroMap.put("/*", "authc");
 
         shiroFilterFactoryBean.setLoginUrl("/toLogin");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroMap);
         return shiroFilterFactoryBean;

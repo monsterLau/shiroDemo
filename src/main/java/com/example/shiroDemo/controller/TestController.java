@@ -1,5 +1,6 @@
 package com.example.shiroDemo.controller;
 
+import com.example.shiroDemo.service.UserService;
 import com.sun.org.apache.bcel.internal.classfile.Unknown;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.catalina.security.SecurityUtil;
@@ -13,10 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.jws.WebParam;
 
 @Controller
 public class TestController {
+    @Resource
+    private UserService userService;
 
     @RequestMapping(value = "test")
     public String hello() {
@@ -56,5 +60,15 @@ public class TestController {
             model.addAttribute("msg", "密码错误");
             return "login";
         }
+    }
+
+    @RequestMapping("insertUser")
+    public String insert(String userName, String password) {
+        userService.insertUser(userName, password);
+        return "";
+    }
+    @RequestMapping("unAuth")
+    public String unAuth() {
+            return "/unAuth";
     }
 }

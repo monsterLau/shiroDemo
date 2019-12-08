@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.osearchUserByUserNamerg//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.shiroDemo.mapper.UserDao">
+    <select id="queryByUserName" resultType="com.example.shiroDemo.entity.User">
+        select id AS id, user_name AS userName, `password` AS `password` ,perms AS `perms` from `user` where user_name = #{userName}
+    </select>
+
+    <insert id="insertUser">
+        insert into `user` (user_name,password) value (#{userName},#{password})
+    </insert>
+</mapper>
