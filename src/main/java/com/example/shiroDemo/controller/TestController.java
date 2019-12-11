@@ -1,8 +1,10 @@
 package com.example.shiroDemo.controller;
 
+import com.example.shiroDemo.aspect.WebLog;
 import com.example.shiroDemo.service.UserService;
 import com.sun.org.apache.bcel.internal.classfile.Unknown;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.catalina.User;
 import org.apache.catalina.security.SecurityUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -43,6 +45,7 @@ public class TestController {
     }
 
     @RequestMapping("login")
+    @WebLog(description = "用户登录")
     public String login(@RequestParam("userName") String userName, @RequestParam("password") String password, Model model) {
         //1.获取subject
         Subject subject = SecurityUtils.getSubject();
@@ -67,8 +70,9 @@ public class TestController {
         userService.insertUser(userName, password);
         return "";
     }
+
     @RequestMapping("unAuth")
     public String unAuth() {
-            return "/unAuth";
+        return "/unAuth";
     }
 }
