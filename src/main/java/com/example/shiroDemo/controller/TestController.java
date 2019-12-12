@@ -30,6 +30,7 @@ public class TestController {
     }
 
     @RequestMapping("add")
+    @WebLog(description = "add")
     public String add(Model model) {
         return "/user/add";
     }

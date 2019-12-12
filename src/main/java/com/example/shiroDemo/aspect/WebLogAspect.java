@@ -3,16 +3,18 @@ package com.example.shiroDemo.aspect;
 import com.google.gson.Gson;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
+@Aspect
+@Component
 public class WebLogAspect {
     private final static Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
     /**
@@ -24,6 +26,7 @@ public class WebLogAspect {
     public void webLog() {
     }
 
+    @Around("webLog()")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object result = proceedingJoinPoint.proceed();
@@ -35,6 +38,7 @@ public class WebLogAspect {
     /**
      * 在切点前织入
      */
+    @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws ClassNotFoundException {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -57,7 +61,7 @@ public class WebLogAspect {
         logger.info("Request Args   : {}", new Gson().toJson(joinPoint.getArgs()));
     }
 
-    @After("@WebLog()")
+    @After("webLog()")
     public void doAfter() {
         logger.info("========================================= End ==========================================");
     }
