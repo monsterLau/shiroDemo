@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 获取当前运行时类的所有属性
@@ -37,7 +40,7 @@ public class FieldTest {
 
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
-            System.out.println(field.toString()+"\t");
+            System.out.println(field.toString() + "\t");
 
             //获取权限修饰符
             int modifiers = field.getModifiers();
@@ -51,5 +54,10 @@ public class FieldTest {
             String fieldName = field.getName();
             System.out.println(fieldName + "\t");
         }
+    }
+
+    @Test
+    public void test3() {
+
     }
 }

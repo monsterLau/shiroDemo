@@ -86,4 +86,39 @@ public class ReflctionTest {
         Class<?> personClass4 = classLoader.loadClass("com.example.shiroDemo.entity.Person");
         System.out.println(personClass4);
     }
+
+    @Test
+    public void getField() throws Exception {
+        Class clazz = Person.class;
+
+        Object o = clazz.newInstance();
+        //设置当前运行时类的某个属性的值
+        Field id = clazz.getDeclaredField("id");
+        Field name = clazz.getDeclaredField("name");
+        id.setAccessible(true);
+        name.setAccessible(true);
+        id.set(o, 10L);
+        name.set(o, "Tom");
+        System.out.println(o.toString());
+
+        //获取当前运行时类某个属性的值
+        Object oId = id.get(o);
+        Object oName = name.get(o);
+        System.out.println(oId);
+        System.out.println(oId.getClass());
+        System.out.println(oName);
+        System.out.println(oName.getClass());
+    }
+
+    /**
+     * 操作运行时类的方法
+     */
+    @Test
+    public void getMethod() throws Exception {
+        Class clazz = Person.class;
+        Object o = clazz.newInstance();
+        Method show = clazz.getDeclaredMethod("showNation", String.class);
+        show.setAccessible(true);
+        show.invoke(o, "change show!");
+    }
 }

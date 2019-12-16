@@ -74,7 +74,8 @@ public class Person extends Creature<String> implements Comparable<String>, MyIn
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';
     }
