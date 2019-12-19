@@ -29,14 +29,14 @@ public class ShiroConfig {
 
         Map<String, String> shiroMap = new LinkedHashMap<>();
 //        shiroMap.put("/add", "authc");
-        shiroMap.put("/test", "anon");
-        shiroMap.put("/login", "anon");
+//        shiroMap.put("/test", "anon");
+//        shiroMap.put("/login", "anon");
 
         //授权过滤器
         //当前授权拦截后，shiro会自动转跳到未授权页面
-        shiroMap.put("/add", "perms[add]");
+//        shiroMap.put("/add", "perms[add]");
 
-        shiroMap.put("/*", "authc");
+//        shiroMap.put("/*", "authc");
 
         shiroFilterFactoryBean.setLoginUrl("/toLogin");
         shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");

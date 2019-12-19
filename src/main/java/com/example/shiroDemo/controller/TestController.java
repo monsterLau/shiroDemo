@@ -1,9 +1,12 @@
 package com.example.shiroDemo.controller;
 
 import com.example.shiroDemo.aspect.WebLog;
+import com.example.shiroDemo.service.UploadService;
 import com.example.shiroDemo.service.UserService;
 import com.sun.org.apache.bcel.internal.classfile.Unknown;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.User;
 import org.apache.catalina.security.SecurityUtil;
 import org.apache.shiro.SecurityUtils;
@@ -13,16 +16,25 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
+@Api(description = "用户操作接口")
 @Controller
 public class TestController {
     @Resource
     private UserService userService;
+
+    @Resource
+    private UploadService uploadService;
 
     @RequestMapping(value = "test")
     public String hello() {
@@ -75,5 +87,12 @@ public class TestController {
     @RequestMapping("unAuth")
     public String unAuth() {
         return "/unAuth";
+    }
+
+    @ApiOperation(value = "ceshi",httpMethod = "POST")
+    @PostMapping("/upload")
+    @ResponseBody
+    public Map<String, String> uplad(MultipartFile file, HttpServletRequest request) throws Exception {
+        return uploadService.uploadFile(file, request);
     }
 }
