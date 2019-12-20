@@ -83,6 +83,23 @@ public class FieldTest {
 //            }
 //        }
         //foreach 里面不要进行remove add操作
+        /**
+         *  使用Foreach时对集合的结构进行修改会出现异常:
+         *
+         * 　　上面我们说了实现了Iterable接口的类就可以通过Foreach遍历，那是因为foreach要依赖于Iterable接口返回的Iterator对象，所以从本质上来讲，Foreach其实就是在使用迭代器，在使用foreach遍历时对集合的结构进行修改，和在使用Iterator遍历时对集合结构进行修改本质上是一样的。所以同样的也会抛出异常，执行快速失败机制。
+         *
+         * 　　foreach是JDK1.5新增加的一个循环结构，foreach的出现是为了简化我们遍历集合的行为。
+         *
+         *  for循环与迭代器的对比:
+         *
+         * 　　* 效率上各有各的优势:
+         *
+         * 　　　　> ArrayList对随机访问比较快，而for循环中使用的get()方法，采用的即是随机访问的方法，因此在ArrayList里for循环快。
+         *
+         * 　　　　> LinkedList则是顺序访问比较快，Iterator中的next()方法采用的是顺序访问方法，因此在LinkedList里使用Iterator较快。
+         *
+         * 　　　　> 主要还是要依据集合的数据结构不同的判断。
+         */
         for (Person p : people) {
             if (p.getName().equals("a")) {
                 people.remove(p);
