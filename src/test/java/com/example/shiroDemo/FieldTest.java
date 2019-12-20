@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,6 +59,35 @@ public class FieldTest {
 
     @Test
     public void test3() {
+        Person p1 = new Person();
+        p1.setName("a");
+        Person p2 = new Person();
+        p2.setName("b");
+        Person p3 = new Person();
+        p3.setName("a");
+        Person p4 = new Person();
+        p4.setName("c");
 
+        List<Person> people = new ArrayList<>();
+        people.add(p1);
+        people.add(p2);
+        people.add(p3);
+        people.add(p4);
+
+//        Iterator<Person> personIterator = people.iterator();
+//        while (personIterator.hasNext()) {
+//            Person p = personIterator.next();
+//            if (p.getName().equals("a")) {
+//                System.out.println(p.toString());
+//                personIterator.remove();
+//            }
+//        }
+        //foreach 里面不要进行remove add操作
+        for (Person p : people) {
+            if (p.getName().equals("a")) {
+                people.remove(p);
+            }
+        }
+        System.out.println(people.size());
     }
 }
