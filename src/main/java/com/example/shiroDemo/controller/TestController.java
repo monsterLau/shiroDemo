@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 @Api(description = "用户操作接口")
@@ -89,10 +91,27 @@ public class TestController {
         return "/unAuth";
     }
 
-    @ApiOperation(value = "ceshi",httpMethod = "POST")
+    @ApiOperation(value = "ceshi", httpMethod = "POST")
     @PostMapping("/upload")
     @ResponseBody
-    public Map<String, String> uplad(MultipartFile file, HttpServletRequest request) throws Exception {
+    public Map<String, String> upload(MultipartFile file, HttpServletRequest request) throws Exception {
         return uploadService.uploadFile(file, request);
+    }
+
+
+    @ApiOperation(value = "ceshi", httpMethod = "POST")
+    @PostMapping("/lll")
+    public String upLoad(MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        String filepath = "/Users";
+        File dest = new File(filepath + fileName);
+        try {
+            file.transferTo(dest);
+            System.out.println("111");
+            return "Success";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "login";
+        }
     }
 }

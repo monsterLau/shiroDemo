@@ -3,7 +3,9 @@ package com.example.shiroDemo;
 import org.junit.jupiter.api.Test;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.plaf.multi.MultiInternalFrameUI;
 import java.io.*;
 
 public class FileInputStreamTest {
@@ -50,7 +52,7 @@ public class FileInputStreamTest {
 
     @Test
     public void testCopyFile() throws Exception {
-        this.copyFile("C:\\Users\\admin\\Pictures\\Screenshots\\屏幕截图(1).png", "D:\\testCopy.png");
+        this.copyFile("C:\\Users\\admin\\Pictures\\Screenshots\\屏幕截图(1).png", "/testCopy.png");
     }
 
     /**
@@ -76,5 +78,28 @@ public class FileInputStreamTest {
         bos.close();
         bis.close();
 
+    }
+
+    @Test
+    public void testtest() throws Exception {
+        File file = new File("C:\\Users\\admin\\Pictures\\Screenshots\\屏幕截图(1).png");
+        FileInputStream fis = new FileInputStream(file);
+
+        String fileName = file.getName();
+        String filePath = "/test";
+        File fileDir = new File("/test");
+        if (!fileDir.exists()) {
+            fileDir.mkdir();
+        }
+//        FileOutputStream fos = new FileOutputStream(filePath + "/" + fileName);
+        BufferedInputStream bis = new BufferedInputStream(fis);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath + "/" + fileName));
+        byte[] bytes = new byte[5];
+        int len;
+        while ((len = bis.read(bytes)) != -1) {
+            bos.write(bytes, 0, len);
+        }
+        bos.close();
+        bis.close();
     }
 }
