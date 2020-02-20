@@ -68,7 +68,7 @@ public class Person extends Creature<String> implements Comparable<String>, MyIn
     }
 
     public Person() {
-        System.out.println("person()");
+
     }
 
     @Override
