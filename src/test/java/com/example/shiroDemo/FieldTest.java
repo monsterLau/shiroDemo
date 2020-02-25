@@ -100,11 +100,11 @@ public class FieldTest {
          *
          * 　　　　> 主要还是要依据集合的数据结构不同的判断。
          */
-        for (Person p : people) {
-            if (p.getName().equals("a")) {
-                people.remove(p);
-            }
-        }
-        System.out.println(people.size());
+//        for (Person p : people) {
+//            if (p.getName().equals("a")) {
+//                people.remove(p);
+//            }
+//        }
+//        System.out.println(people.size());
     }
 }
